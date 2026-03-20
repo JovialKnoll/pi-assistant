@@ -42,11 +42,11 @@ class ImageThread(threading.Thread):
 
     def run(self):
         while True:
-            image, delay = renderer.get_page(self.thread_id, self.images[self.thread_id])
+            image = renderer.get_page(self.thread_id, self.images[self.thread_id])
             if image:
                 self.images[self.thread_id] = image
                 self.refreshes[self.thread_id] = True
-            time.sleep(delay)
+            time.sleep(config.DELAY)
 
 
 def main():

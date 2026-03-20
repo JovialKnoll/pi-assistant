@@ -136,8 +136,7 @@ def get_page(page_index, current_image):
         page_config['long'],
         page_config['label']
     )
-    delay = page_config['delay']
     if not current_image \
     or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
-        return new_image, delay
-    return None, delay
+        return new_image
+    return None
