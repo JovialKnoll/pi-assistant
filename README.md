@@ -1,3 +1,3 @@
 # simple pi assistant
 
-run setup, press buttons
+run setup, press buttons, display weather
