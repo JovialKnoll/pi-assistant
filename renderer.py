@@ -115,6 +115,15 @@ def _display_weather(weather, label):
     (font_width, font_height) = large_font.getsize(windspeed)
     xy = (config.WIDTH - font_width, old_font_y)
     draw.text(xy, windspeed, font=large_font, fill=BLACK)
+    old_font_y = xy[1] + font_height
+
+    winddeg = weather["wind"]["deg"]
+    midway = (config.HEIGHT - old_font_y) // 2
+    start_pos = (config.WIDTH - midway, config.HEIGHT - midway)
+    print(old_font_y)
+    print(config.HEIGHT)
+    print(start_pos)
+    draw.line((start_pos), fill=BLACK)
 
     return image
 
