@@ -123,7 +123,7 @@ def _display_weather(weather, label):
     ly = config.HEIGHT - midway
     print(old_font_y)
     print(config.HEIGHT)
-    print(start_pos)
+    print((lx, ly))
     draw.line((lx, ly), (lx, ly), fill=BLACK)
 
     return image
