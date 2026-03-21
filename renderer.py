@@ -124,7 +124,7 @@ def _display_weather(weather, label):
     print(old_font_y)
     print(config.HEIGHT)
     print((lx, ly))
-    draw.line((lx, ly), (lx, ly), fill=BLACK)
+    draw.line(((lx, ly), (lx, ly)), fill=BLACK)
 
     return image
 
