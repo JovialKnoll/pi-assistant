@@ -124,6 +124,7 @@ def _display_weather(weather, label):
     print(old_font_y)
     print(config.HEIGHT)
     print((lx, ly))
+    draw.circle((lx, ly), midway, outline=BLACK)
     draw.line(((lx, ly), (lx, ly - 14)), fill=BLACK)
 
     return image
