@@ -119,11 +119,12 @@ def _display_weather(weather, label):
 
     winddeg = weather["wind"]["deg"]
     midway = (config.HEIGHT - old_font_y) // 2
-    start_pos = (config.WIDTH - midway, config.HEIGHT - midway)
+    lx = config.WIDTH - midway
+    ly = config.HEIGHT - midway
     print(old_font_y)
     print(config.HEIGHT)
     print(start_pos)
-    draw.line((start_pos), fill=BLACK)
+    draw.line((lx, ly), (lx, ly), fill=BLACK)
 
     return image
 
