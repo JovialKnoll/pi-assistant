@@ -41,8 +41,12 @@ def _get_fahrenheit(celsius):
     return (celsius * 9/5) + 32
 
 
-_width_for_temp_c = large_font.getsize("000°C")[0]
-_width_for_temp_both = large_font.getsize("100°F000°C")[0]
+def _get_size(bbox):
+    return (bbox[2] - bbox[0], bbox[3] - bbox[1])
+
+
+_width_for_temp_c = _get_size(large_font.getbbox("000°C"))[0]
+_width_for_temp_both = _get_size(large_font.getbbox("100°F000°C"))[0]
 
 
 def _display_weather(weather, label):
@@ -55,64 +59,64 @@ def _display_weather(weather, label):
     draw = ImageDraw.Draw(image)
 
     draw.text((0, 0), label, font=medium_font, fill=BLACK)
-    (label_font_width, label_font_height) = medium_font.getsize(label)
+    (label_font_width, label_font_height) = _get_size(medium_font.getbbox(label))
     
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
-    (font_width, font_height) = small_font.getsize(description)
+    (font_width, font_height) = _get_size(small_font.getbbox(description))
     xy = (0, config.HEIGHT - font_height)
     draw.text(xy, description, font=small_font, fill=BLACK)
 
     main = weather["weather"][0]["main"]
-    (font_width, font_height) = large_font.getsize(main)
+    (font_width, font_height) = _get_size(large_font.getbbox(main))
     xy = (0, xy[1] - font_height)
     draw.text(xy, main, font=large_font, fill=BLACK)
 
     weather_icon = ICON_MAP[weather["weather"][0]["icon"]]
-    (font_width, font_height) = icon_font.getsize(weather_icon)
+    (font_width, font_height) = _get_size(icon_font.getbbox(weather_icon))
     xy = (0, label_font_height + (xy[1] - label_font_height) // 2 - font_height // 2)
     draw.text(xy, weather_icon, font=icon_font, fill=BLACK)
 
     temperature_c = "%d°C" % round(temp_c)
-    (font_width, font_height) = large_font.getsize(temperature_c)
+    (font_width, font_height) = _get_size(large_font.getbbox(temperature_c))
     xy = (config.WIDTH - font_width, 0)
     draw.text(xy, temperature_c, font=large_font, fill=BLACK)
     old_font_height = font_height
     temperature_f = "%d°F" % round(temp_f)
-    (font_width, font_height) = large_font.getsize(temperature_f)
+    (font_width, font_height) = _get_size(large_font.getbbox(temperature_f))
     xy = (config.WIDTH - font_width - _width_for_temp_c, 0)
     draw.text(xy, temperature_f, font=large_font, fill=BLACK)
     old_font_height = max(old_font_height, font_height)
 
     y = xy[1] + old_font_height
     temperature_c = "%d°C" % round(feels_like_c)
-    (font_width, font_height) = large_font.getsize(temperature_c)
+    (font_width, font_height) = _get_size(large_font.getbbox(temperature_c))
     xy = (config.WIDTH - font_width, y)
     old_font_height = font_height
     draw.text(xy, temperature_c, font=large_font, fill=BLACK)
     temperature_f = "%d°F" % round(feels_like_f)
-    (font_width, font_height) = large_font.getsize(temperature_f)
+    (font_width, font_height) = _get_size(large_font.getbbox(temperature_f))
     xy = (config.WIDTH - font_width - _width_for_temp_c, y)
     draw.text(xy, temperature_f, font=large_font, fill=BLACK)
     old_font_y = xy[1] + max(old_font_height, font_height)
 
-    (font_width, font_height) = small_font.getsize("feels")
+    (font_width, font_height) = _get_size(small_font.getbbox("feels"))
     xy = (config.WIDTH - font_width - _width_for_temp_both, y)
     draw.text(xy, "feels", font=small_font, fill=BLACK)
     feels_font_height = font_height
 
-    (font_width, font_height) = small_font.getsize("like")
+    (font_width, font_height) = _get_size(small_font.getbbox("like"))
     xy = (config.WIDTH - font_width - _width_for_temp_both, y + feels_font_height)
     draw.text(xy, "like", font=small_font, fill=BLACK)
 
     humidity = "%d%%" % weather["main"]["humidity"]
-    (font_width, font_height) = large_font.getsize(humidity)
+    (font_width, font_height) = _get_size(large_font.getbbox(humidity))
     xy = (config.WIDTH - font_width, old_font_y)
     draw.text(xy, humidity, font=large_font, fill=BLACK)
     old_font_y = xy[1] + font_height
 
     windspeed = "%dm/s" % weather["wind"]["speed"]
-    (font_width, font_height) = large_font.getsize(windspeed)
+    (font_width, font_height) = _get_size(large_font.getbbox(windspeed))
     xy = (config.WIDTH - font_width, old_font_y)
     draw.text(xy, windspeed, font=large_font, fill=BLACK)
     old_font_y = xy[1] + font_height
@@ -124,7 +128,7 @@ def _display_weather(weather, label):
     print(old_font_y)
     print(config.HEIGHT)
     print((lx, ly))
-    draw.circle((lx, ly), midway, outline=BLACK)
+    draw.circle((lx, ly), 14, outline=BLACK)
     draw.line(((lx, ly), (lx, ly - 14)), fill=BLACK)
 
     return image
