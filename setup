@@ -2,9 +2,11 @@
 
 sudo apt update -y;
 sudo apt full-upgrade -y;
-sudo apt install -y python3-pip fonts-dejavu python3-pil at;
+sudo apt install -y at;
+#python3-pip fonts-dejavu python3-pil
 sudo apt autoremove -y;
 sudo pip3 install --upgrade pip;
 sudo pip3 install -r requirements.txt;
+echo "turn on SPI interface";
 echo "add the following to sudo crontab";
 echo "@reboot echo '~/git/pi_assistant/script' | at now + 2 minutes &> /dev/null";

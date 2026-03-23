@@ -10,6 +10,7 @@ import threading
 from adafruit_debouncer import Debouncer
 from adafruit_epd.epd import Adafruit_EPD
 from adafruit_epd.ssd1680 import Adafruit_SSD1680
+from PIL import ImageChops
 
 import config
 import renderer
@@ -42,9 +43,11 @@ class ImageThread(threading.Thread):
 
     def run(self):
         while True:
-            image = renderer.get_page(self.thread_id, self.images[self.thread_id])
-            if image:
-                self.images[self.thread_id] = image
+            current_image = self.images[self.thread_id]
+            new_image = renderer.get_page(self.thread_id)
+            if not current_image \
+            or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
+                self.images[self.thread_id] = new_image
                 self.refreshes[self.thread_id] = True
             time.sleep(config.DELAY)
 

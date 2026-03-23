@@ -1,4 +1,4 @@
-from PIL import Image, ImageChops, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 import config
 import data
@@ -140,14 +140,10 @@ def _get_weather_display(lat, long, label):
 page_count = len(config.CONFIG_PAGES)
 
 
-def get_page(page_index, current_image):
+def get_page(page_index):
     page_config = config.CONFIG_PAGES[page_index]
-    new_image = _get_weather_display(
+    return _get_weather_display(
         page_config['lat'],
         page_config['long'],
         page_config['label']
     )
-    if not current_image \
-    or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
-        return new_image
-    return None
