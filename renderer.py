@@ -61,11 +61,6 @@ _width_for_temp_both = _get_size(large_font.getbbox("100°F000°C"))[0]
 
 # bbox = left, upper, right, and lower pixel
 def _display_weather(weather, label):
-    temp_c = _get_celsius(weather["main"]["temp"])
-    temp_f = _get_fahrenheit(temp_c)
-    feels_like_c = _get_celsius(weather["main"]["feels_like"])
-    feels_like_f = _get_fahrenheit(feels_like_c)
-
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
@@ -92,6 +87,11 @@ def _display_weather(weather, label):
     (font_width, font_height) = _get_size(icon_font.getbbox(weather_icon))
     xy = (0, label_font_height + (xy[1] - label_font_height) // 2 - font_height // 2)
     draw.text(xy, weather_icon, font=icon_font, fill=BLACK)
+
+    temp_c = _get_celsius(weather["main"]["temp"])
+    temp_f = _get_fahrenheit(temp_c)
+    feels_like_c = _get_celsius(weather["main"]["feels_like"])
+    feels_like_f = _get_fahrenheit(feels_like_c)
 
     temperature_c = "%d°C" % round(temp_c)
     (font_width, font_height) = _get_size(large_font.getbbox(temperature_c))
