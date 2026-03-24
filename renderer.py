@@ -59,6 +59,7 @@ _width_for_temp_c = _get_size(large_font.getbbox("000°C"))[0]
 _width_for_temp_both = _get_size(large_font.getbbox("100°F000°C"))[0]
 
 
+# bbox = left, upper, right, and lower pixel
 def _display_weather(weather, label):
     temp_c = _get_celsius(weather["main"]["temp"])
     temp_f = _get_fahrenheit(temp_c)
@@ -68,18 +69,23 @@ def _display_weather(weather, label):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
-    draw.text((0, 0), label, font=medium_font, fill=BLACK)
-    (label_font_width, label_font_height) = _get_size(medium_font.getbbox(label))
+    bbox = medium_font.getbbox(label)
+    draw.text((0, 1 - bbox[1]), label, font=medium_font, fill=BLACK)
+    label_font_height = bbox[3] + 1 - bbox[1]
+    print(label_font_height)
     
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
-    (font_width, font_height) = _get_size(small_font.getbbox(description))
-    xy = (0, config.HEIGHT - font_height)
-    draw.text(xy, description, font=small_font, fill=BLACK)
+    bbox = small_font.getbbox(description)
+    font_height = bbox[3] - bbox[1]
+    old_font_top = config.HEIGHT - 1 - font_height
+    draw.text((0, old_font_top - bbox[1]), description, font=small_font, fill=BLACK)
 
     main = weather["weather"][0]["main"]
-    (font_width, font_height) = _get_size(large_font.getbbox(main))
-    xy = (0, xy[1] - font_height)
+    bbox = large_font.getbbox(main)
+    font_height = bbox[3] - bbox[1]
+    old_font_top = old_font_top - 1 - font_height
+    xy = (0, old_font_top - bbox[1])
     draw.text(xy, main, font=large_font, fill=BLACK)
 
     weather_icon = ICON_MAP[weather["weather"][0]["icon"]]
@@ -135,9 +141,9 @@ def _display_weather(weather, label):
     midway = (config.HEIGHT - old_font_y) // 2
     lx = config.WIDTH - midway
     ly = config.HEIGHT - midway
-    print(old_font_y)
-    print(config.HEIGHT)
-    print((lx, ly))
+    #print(old_font_y)
+    #print(config.HEIGHT)
+    #print((lx, ly))
     draw.circle((lx, ly), 14, outline=BLACK)
     draw.line(((lx, ly), (lx, ly - 14)), fill=BLACK)
 
