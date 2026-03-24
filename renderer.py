@@ -64,10 +64,11 @@ def _display_weather(weather, label):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
-    bbox = medium_font.getbbox(label)
-    draw.text((0, 1 - bbox[1]), label, font=medium_font, fill=BLACK)
-    label_font_height = bbox[3] + 1 - bbox[1]
-    print(label_font_height)
+    label_bbox = medium_font.getbbox(label)
+    label_y_offset = label_bbox[1]
+    label_y_bottom = label_bbox[3] - label_y_offset
+    draw.text((0, 1 - label_y_offset), label, font=medium_font, fill=BLACK)
+    print("label_y_bottom: " + str(label_y_bottom))
     
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
@@ -85,7 +86,7 @@ def _display_weather(weather, label):
 
     weather_icon = ICON_MAP[weather["weather"][0]["icon"]]
     (font_width, font_height) = _get_size(icon_font.getbbox(weather_icon))
-    xy = (0, label_font_height + (xy[1] - label_font_height) // 2 - font_height // 2)
+    xy = (0, label_y_bottom + (xy[1] - label_y_bottom) // 2 - font_height // 2)
     draw.text(xy, weather_icon, font=icon_font, fill=BLACK)
 
     temp_c = _get_celsius(weather["main"]["temp"])
