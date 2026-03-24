@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from PIL import Image, ImageDraw, ImageFont
 
 import config
@@ -5,10 +7,18 @@ import data
 
 
 # drawing vars
-small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
-medium_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
-large_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 24)
-icon_font = ImageFont.truetype("./fonts/meteocons.ttf", 48)
+small_font = ImageFont.truetype(
+    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans-Bold.ttf",
+    16)
+medium_font = ImageFont.truetype(
+    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans.ttf",
+    20)
+large_font = ImageFont.truetype(
+    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans-Bold.ttf",
+    24)
+icon_font = ImageFont.truetype(
+    Path(__file__).parent / "fonts" / "meteocons.ttf",
+    48)
 ICON_MAP = {
     "01d": "B",
     "01n": "C",
