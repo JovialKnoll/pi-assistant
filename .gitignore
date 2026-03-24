@@ -130,4 +130,4 @@ dmypy.json
 
 # config, testing
 config.json
-test.png
+*.png
