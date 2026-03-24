@@ -1,2 +1,6 @@
 #!/bin/bash
-cd ~/git/pi_assistant && python3 ~/git/pi_assistant/main.py
+
+cd ~/git/pi-assistant &&
+source ~/git/pi-assistant/venv/bin/activate &&
+python ~/git/pi-assistant/main.py &&
+deactivate ;

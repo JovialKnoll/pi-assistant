@@ -11,4 +11,4 @@ pip install -r requirements.txt;
 deactivate;
 echo "turn on SPI interface";
 echo "add the following to sudo crontab";
-echo "@reboot echo '~/git/pi_assistant/script' | at now + 2 minutes &> /dev/null";
+echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
