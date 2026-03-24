@@ -3,7 +3,7 @@
 sudo apt update -y;
 sudo apt full-upgrade -y;
 sudo apt install -y at;
-#python3-pip fonts-dejavu python3-pil
+#python3-pip python3-pil
 sudo apt autoremove -y;
 sudo pip3 install --upgrade pip;
 sudo pip3 install -r requirements.txt;
