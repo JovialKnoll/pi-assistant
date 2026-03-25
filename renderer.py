@@ -41,6 +41,9 @@ ICON_MAP = {
 }
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+MARGIN_X = 0
+MARGIN_Y = 1
+SPACING = 1
 
 
 def _get_celsius(kelvin):
@@ -64,15 +67,11 @@ def _display_weather(weather, label):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
-    margin_x = 0
-    margin_y = 1
-    spacing = 1
-
     label_bbox = medium_font.getbbox(label)
     label_y_offset = label_bbox[1]
     label_bottom = label_bbox[3] - label_y_offset
     draw.text(
-        (margin_x, margin_y - label_y_offset),
+        (MARGIN_X, MARGIN_Y - label_y_offset),
         label, font=medium_font, fill=BLACK)
     print("label_bottom: " + str(label_bottom))
 
@@ -81,9 +80,9 @@ def _display_weather(weather, label):
     description_bbox = small_font.getbbox(description)
     description_y_offset = description_bbox[1]
     description_height = description_bbox[3] - description_y_offset
-    description_top = config.HEIGHT - margin_y - description_height
+    description_top = config.HEIGHT - MARGIN_Y - description_height
     draw.text(
-        (margin_x, description_top - description_y_offset),
+        (MARGIN_X, description_top - description_y_offset),
         description, font=small_font, fill=BLACK)
     print("description_top: " + str(description_top))
 
@@ -91,9 +90,9 @@ def _display_weather(weather, label):
     main_bbox = large_font.getbbox(main)
     main_y_offset = main_bbox[1]
     main_height = main_bbox[3] - main_y_offset
-    main_top = description_top - spacing - main_height
+    main_top = description_top - SPACING - main_height
     draw.text(
-        (margin_x, main_top - main_y_offset),
+        (MARGIN_X, main_top - main_y_offset),
         main, font=large_font, fill=BLACK)
     print("main_top: " + str(main_top))
 
@@ -101,9 +100,9 @@ def _display_weather(weather, label):
     icon_bbox = icon_font.getbbox(icon)
     icon_y_offset = icon_bbox[1]
     icon_height = icon_bbox[3] - icon_y_offset
-    icon_top = main_top - spacing - icon_height
+    icon_top = main_top - SPACING - icon_height
     draw.text(
-        (margin_x, icon_top - icon_y_offset),
+        (MARGIN_X, icon_top - icon_y_offset),
         icon, font=icon_font, fill=BLACK)
 
     temp_c = _get_celsius(weather["main"]["temp"])
