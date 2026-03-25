@@ -8,36 +8,36 @@ import config
 
 # drawing vars
 small_font = ImageFont.truetype(
-    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans-Bold.ttf",
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
     16)
 medium_font = ImageFont.truetype(
-    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans.ttf",
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans.ttf',
     20)
 large_font = ImageFont.truetype(
-    Path(__file__).parent / "fonts" / "dejavu" / "DejaVuSans-Bold.ttf",
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
     24)
 icon_font = ImageFont.truetype(
-    Path(__file__).parent / "fonts" / "meteocons.ttf",
+    Path(__file__).parent / 'fonts' / 'meteocons.ttf',
     48)
 ICON_MAP = {
-    "01d": "B",
-    "01n": "C",
-    "02d": "H",
-    "02n": "I",
-    "03d": "N",
-    "03n": "N",
-    "04d": "Y",
-    "04n": "Y",
-    "09d": "Q",
-    "09n": "Q",
-    "10d": "R",
-    "10n": "R",
-    "11d": "Z",
-    "11n": "Z",
-    "13d": "W",
-    "13n": "W",
-    "50d": "J",
-    "50n": "K",
+    '01d': 'B',
+    '01n': 'C',
+    '02d': 'H',
+    '02n': 'I',
+    '03d': 'N',
+    '03n': 'N',
+    '04d': 'Y',
+    '04n': 'Y',
+    '09d': 'Q',
+    '09n': 'Q',
+    '10d': 'R',
+    '10n': 'R',
+    '11d': 'Z',
+    '11n': 'Z',
+    '13d': 'W',
+    '13n': 'W',
+    '50d': 'J',
+    '50n': 'K',
 }
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
