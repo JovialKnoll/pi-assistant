@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
+import json
 import sys
 
-import config
-import data
+#import config
+#import data
 import renderer
 
 
-page_config = config.CONFIG_PAGES[0]
-weather = data.get_weather(page_config['lat'], page_config['long'])
-image = renderer.get_weather_display(page_config['label'], weather)
-image.save("test.png")
+#page_config = config.CONFIG_PAGES[0]
+#label = page_config['label']
+#weather = data.get_weather(page_config['lat'], page_config['long'])
+label = "Home"
+with open(Path(__file__).parent / 'test.json', 'r') as f:
+    weather = json.load(f)
+image = renderer.get_weather_display(label, weather)
+image.save(Path(__file__).parent / 'test.png')
 sys.exit()
