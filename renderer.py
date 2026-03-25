@@ -102,9 +102,11 @@ def get_weather_display(label, date, weather):
     icon_bbox = icon_font.getbbox(icon)
     icon_y_offset = icon_bbox[1]
     icon_height = icon_bbox[3] - icon_y_offset
+    icon_width = icon_bbox[2]
     icon_top = main_top - SPACING - icon_height
+    icon_right = MARGIN_X + SPACING + icon_width
     draw.text(
-        (MARGIN_X + SPACING, icon_top - icon_y_offset),
+        (icon_right - icon_width, icon_top - icon_y_offset),
         icon, font=icon_font, fill=BLACK)
 
     temp_c_num = _get_celsius(weather["main"]["temp"])
@@ -169,6 +171,17 @@ def get_weather_display(label, date, weather):
         "like", font=small_font, fill=BLACK)
     print("like_bottom: " + str(like_bottom))
 
+    month_day = date.strftime("%m-%d")
+    month_day_bbox = large_font.getbbox(month_day)
+    month_day_y_offset = month_day_bbox[1]
+    month_day_width = month_day_bbox[2]
+    month_day_height = month_day_bbox[3] - month_day_y_offset
+    month_day_top = main_top - SPACING - month_day_height
+    draw.text(
+        (icon_right + SPACING, month_day_top - month_day_y_offset),
+        month_day, font=large_font, fill=BLACK)
+    print("month_day_top: " + str(month_day_top))
+
     humidity = "%d%%" % weather["main"]["humidity"]
     humidity_bbox = large_font.getbbox(humidity)
     humidity_y_offset = humidity_bbox[1]
@@ -218,25 +231,5 @@ def get_weather_display(label, date, weather):
     #    (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
     #    (center[0] - arrow_radius * math.cos(arrow_radians_right), center[1] + arrow_radius * math.sin(arrow_radians_right)),
     #    ), fill=BLACK, outline=BLACK)
-
-    month_day = date.strftime("%m-%d")
-    month_day_bbox = large_font.getbbox(month_day)
-    month_day_y_offset = month_day_bbox[1]
-    month_day_width = month_day_bbox[2]
-    month_day_top = config.HEIGHT - MARGIN_Y - month_day_bbox[3] + month_day_y_offset
-    draw.text(
-        (center[0] - radius - 1 - SPACING - month_day_width, month_day_top - month_day_y_offset),
-        month_day, font=large_font, fill=BLACK)
-    print("month_day_top: " + str(month_day_top))
-
-    year = date.strftime("%Y-")
-    year_bbox = large_font.getbbox(year)
-    year_y_offset = year_bbox[1]
-    year_width = year_bbox[2]
-    year_top = month_day_top - SPACING - month_day_bbox[3] + year_y_offset
-    draw.text(
-        (center[0] - radius - 1 - SPACING - year_width, year_top - year_y_offset),
-        year, font=large_font, fill=BLACK)
-    print("year_top: " + str(year_top))
 
     return image
