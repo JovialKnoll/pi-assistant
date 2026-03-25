@@ -7,18 +7,6 @@ import config
 
 
 # drawing vars
-small_font = ImageFont.truetype(
-    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
-    16)
-medium_font = ImageFont.truetype(
-    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans.ttf',
-    20)
-large_font = ImageFont.truetype(
-    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
-    24)
-icon_font = ImageFont.truetype(
-    Path(__file__).parent / 'fonts' / 'meteocons.ttf',
-    48)
 ICON_MAP = {
     '01d': 'B',
     '01n': 'C',
@@ -44,6 +32,18 @@ BLACK = (0, 0, 0)
 MARGIN_X = 0
 MARGIN_Y = 1
 SPACING = 1
+small_font = ImageFont.truetype(
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
+    16)
+medium_font = ImageFont.truetype(
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans.ttf',
+    20)
+large_font = ImageFont.truetype(
+    Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
+    24)
+icon_font = ImageFont.truetype(
+    Path(__file__).parent / 'fonts' / 'meteocons.ttf',
+    48)
 
 example_text = "XxYyPpQqGgJj"
 small_font_example_bbox = small_font.getbbox(example_text)

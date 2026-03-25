@@ -9,8 +9,8 @@
     ],
     "base": "stations",
     "main": {
-        "temp": 281.72,
-        "feels_like": 279.34,
+        "temp": 294.72,
+        "feels_like": 293.34,
         "temp_min": 280.46,
         "temp_max": 283.25,
         "pressure": 1028,
