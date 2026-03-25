@@ -10,6 +10,7 @@ import threading
 from adafruit_debouncer import Debouncer
 from adafruit_epd.epd import Adafruit_EPD
 from adafruit_epd.ssd1680 import Adafruit_SSD1680
+from PIL import ImageChops
 
 import config
 import renderer
@@ -32,6 +33,8 @@ down_button = digitalio.DigitalInOut(board.D5)
 down_button.switch_to_input()
 down_switch = Debouncer(down_button)
 
+page_count = len(config.CONFIG_PAGES)
+
 
 class ImageThread(threading.Thread):
     def __init__(self, images, refreshes, thread_id):
@@ -42,19 +45,21 @@ class ImageThread(threading.Thread):
 
     def run(self):
         while True:
-            image = renderer.get_page(self.thread_id, self.images[self.thread_id])
-            if image:
-                self.images[self.thread_id] = image
+            current_image = self.images[self.thread_id]
+            new_image = renderer.get_page(self.thread_id)
+            if not current_image \
+            or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
+                self.images[self.thread_id] = new_image
                 self.refreshes[self.thread_id] = True
             time.sleep(config.DELAY)
 
 
 def main():
-    images = [None] * renderer.page_count
-    refreshes = [False] * renderer.page_count
+    images = [None] * page_count
+    refreshes = [False] * page_count
     threads = [
         ImageThread(images, refreshes, i)
-        for i in range(renderer.page_count)
+        for i in range(page_count)
     ]
     for thread in threads:
         thread.start()
@@ -65,11 +70,11 @@ def main():
         down_switch.update()
         if up_switch.fell:
             page_index -= 1
-            page_index %= renderer.page_count
+            page_index %= page_count
             refreshes[page_index] = True
         if down_switch.fell:
             page_index += 1
-            page_index %= renderer.page_count
+            page_index %= page_count
             refreshes[page_index] = True
         if refreshes[page_index] and images[page_index]:
             display.image(images[page_index])
