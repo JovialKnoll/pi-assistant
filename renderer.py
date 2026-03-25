@@ -66,6 +66,7 @@ def _display_weather(weather, label):
 
     margin_x = 0
     margin_y = 1
+    spacing = 1
 
     label_bbox = medium_font.getbbox(label)
     label_y_offset = label_bbox[1]
@@ -90,7 +91,7 @@ def _display_weather(weather, label):
     main_bbox = large_font.getbbox(main)
     main_y_offset = main_bbox[1]
     main_height = main_bbox[3] - main_y_offset
-    main_top = description_top - 1 - main_height
+    main_top = description_top - spacing - main_height
     draw.text(
         (margin_x, main_top - main_y_offset),
         main, font=large_font, fill=BLACK)
@@ -100,7 +101,7 @@ def _display_weather(weather, label):
     icon_bbox = icon_font.getbbox(icon)
     icon_y_offset = icon_bbox[1]
     icon_height = icon_bbox[3] - icon_y_offset
-    icon_top = main_top - 1 - icon_height
+    icon_top = main_top - spacing - icon_height
     draw.text(
         (margin_x, icon_top - icon_y_offset),
         icon, font=icon_font, fill=BLACK)
