@@ -152,7 +152,7 @@ def _display_weather(label, weather):
     feels_bbox = small_font.getbbox("feels")
     feels_y_offset = feels_bbox[1]
     feels_width = feels_bbox[2]
-    feels_bottom = label_bottom + SPACING + SPACING + feels_bbox[3] - feels_y_offset
+    feels_bottom = temp_f_bottom + SPACING + feels_bbox[3] - feels_y_offset
     draw.text(
         (config.WIDTH - full_temp_both_width - feels_width, feels_bottom - feels_bbox[3]),
         "feels", font=small_font, fill=BLACK)
