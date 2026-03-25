@@ -58,8 +58,8 @@ def _get_size(bbox):
     return (bbox[2] - bbox[0], bbox[3] - bbox[1])
 
 
-_width_for_temp_c = _get_size(large_font.getbbox("000°C"))[0]
-_width_for_temp_both = _get_size(large_font.getbbox("100°F000°C"))[0]
+full_temp_c_width = large_font.getbbox("000°C")[2]
+full_temp_both_width = large_font.getbbox("100°F000°C")[2]
 
 
 # bbox = left, upper, right, and lower pixel
@@ -105,46 +105,62 @@ def _display_weather(label, weather):
         (MARGIN_X, icon_top - icon_y_offset),
         icon, font=icon_font, fill=BLACK)
 
-    temp_c = _get_celsius(weather["main"]["temp"])
-    temp_f = _get_fahrenheit(temp_c)
-    feels_like_c = _get_celsius(weather["main"]["feels_like"])
-    feels_like_f = _get_fahrenheit(feels_like_c)
+    temp_c_num = _get_celsius(weather["main"]["temp"])
+    temp_c = "%d°C" % round(temp_c_num)
+    temp_c_bbox = large_font.getbbox(temp_c)
+    temp_c_y_offset = temp_c_bbox[1]
+    temp_c_width = temp_c_bbox[2]
+    temp_c_bottom = temp_c_bbox[3] - temp_c_y_offset
+    draw.text(
+        (config.WIDTH - temp_c_width, MARGIN_Y - temp_c_y_offset),
+        temp_c, font=large_font, fill=BLACK)
+    print("temp_c_bottom: " + str(temp_c_bottom))
 
-    temperature_c = "%d°C" % round(temp_c)
-    (font_width, font_height) = _get_size(large_font.getbbox(temperature_c))
-    xy = (config.WIDTH - font_width, 0)
-    draw.text(xy, temperature_c, font=large_font, fill=BLACK)
-    old_font_height = font_height
-    temperature_f = "%d°F" % round(temp_f)
-    (font_width, font_height) = _get_size(large_font.getbbox(temperature_f))
-    xy = (config.WIDTH - font_width - _width_for_temp_c, 0)
-    draw.text(xy, temperature_f, font=large_font, fill=BLACK)
-    old_font_height = max(old_font_height, font_height)
+    temp_f_num = _get_fahrenheit(temp_c_num)
+    temp_f = "%d°F" % round(temp_f_num)
+    temp_f_bbox = large_font.getbbox(temp_f)
+    temp_f_y_offset = temp_f_bbox[1]
+    temp_f_width = temp_f_bbox[2]
+    temp_f_bottom = temp_f_bbox[3] - temp_f_y_offset
+    draw.text(
+        (config.WIDTH - full_temp_c_width - temp_f_width, MARGIN_Y - temp_f_y_offset),
+        temp_f, font=large_font, fill=BLACK)
+    print("temp_f_bottom: " + str(temp_f_bottom))
+    """
+    feels_like_c_num = _get_celsius(weather["main"]["feels_like"])
+    feels_like_c = "%d°C" % round(feels_like_c_num)
+    feels_like_c_bbox = large_font.getbbox(feels_like_c)
+    feels_like_c_y_offset = feels_like_c_bbox[1]
+    feels_like_c_width = feels_like_c_bbox[2]
+    feels_like_c_bottom = MARGIN_Y + temp_c_bottom + SPACING + feels_like_c_bbox[3] - feels_like_c_y_offset
+    draw.text(
+        (config.WIDTH - feels_like_c_width, MARGIN_Y + temp_c_bottom + SPACING - feels_like_c_y_offset),
+        feels_like_c, font=large_font, fill=BLACK)
+    print("feels_like_c_bottom: " + str(feels_like_c_bottom))
 
-    y = xy[1] + old_font_height
-    temperature_c = "%d°C" % round(feels_like_c)
-    (font_width, font_height) = _get_size(large_font.getbbox(temperature_c))
-    xy = (config.WIDTH - font_width, y)
-    old_font_height = font_height
-    draw.text(xy, temperature_c, font=large_font, fill=BLACK)
-    temperature_f = "%d°F" % round(feels_like_f)
-    (font_width, font_height) = _get_size(large_font.getbbox(temperature_f))
-    xy = (config.WIDTH - font_width - _width_for_temp_c, y)
-    draw.text(xy, temperature_f, font=large_font, fill=BLACK)
-    old_font_y = xy[1] + max(old_font_height, font_height)
+    feels_like_f_num = _get_fahrenheit(feels_like_c_num)
+    feels_like_f = "%d°F" % round(feels_like_f_num)
+    feels_like_f_bbox = large_font.getbbox(feels_like_f)
+    feels_like_f_y_offset = feels_like_f_bbox[1]
+    feels_like_f_width = feels_like_f_bbox[2]
+    feels_like_f_bottom = MARGIN_Y + temp_f_bottom + SPACING + feels_like_f_bbox[3] - feels_like_f_y_offset
+    draw.text(
+        (config.WIDTH - full_temp_c_width - feels_like_f_width, MARGIN_Y + temp_f_bottom + SPACING - feels_like_f_y_offset),
+        feels_like_f, font=large_font, fill=BLACK)
+    print("feels_like_f_bottom: " + str(feels_like_f_bottom))
 
     (font_width, font_height) = _get_size(small_font.getbbox("feels"))
-    xy = (config.WIDTH - font_width - _width_for_temp_both, y)
+    xy = (config.WIDTH - font_width - full_temp_both_width, feels_like_f_bottom - feels_like_f_bbox[3])
     draw.text(xy, "feels", font=small_font, fill=BLACK)
     feels_font_height = font_height
 
     (font_width, font_height) = _get_size(small_font.getbbox("like"))
-    xy = (config.WIDTH - font_width - _width_for_temp_both, y + feels_font_height)
+    xy = (config.WIDTH - font_width - full_temp_both_width, feels_like_f_bottom - feels_like_f_bbox[3] + feels_font_height)
     draw.text(xy, "like", font=small_font, fill=BLACK)
 
     humidity = "%d%%" % weather["main"]["humidity"]
     (font_width, font_height) = _get_size(large_font.getbbox(humidity))
-    xy = (config.WIDTH - font_width, old_font_y)
+    xy = (config.WIDTH - font_width, feels_like_f_bottom)
     draw.text(xy, humidity, font=large_font, fill=BLACK)
     old_font_y = xy[1] + font_height
 
@@ -163,6 +179,7 @@ def _display_weather(label, weather):
     #print((lx, ly))
     draw.circle((lx, ly), 14, outline=BLACK)
     draw.line(((lx, ly), (lx, ly - 14)), fill=BLACK)
+    """
 
     return image
 
