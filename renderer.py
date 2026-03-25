@@ -64,7 +64,7 @@ def _get_fahrenheit(celsius):
     return (celsius * 9/5) + 32
 
 
-def get_weather_display(label, weather):
+def get_weather_display(label, date, weather):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
@@ -198,20 +198,18 @@ def get_weather_display(label, weather):
     draw.point((
         (center[0], center[1] - radius - 1),
         (center[0], center[1] - radius + 1),
-        #(center[0], center[1] - radius + 2),
         (center[0], center[1] + radius + 1),
         (center[0], center[1] + radius - 1),
-        #(center[0], center[1] + radius - 2),
         (center[0] - radius - 1, center[1]),
         (center[0] - radius + 1, center[1]),
-        #(center[0] - radius + 2, center[1]),
         (center[0] + radius + 1, center[1]),
         (center[0] + radius - 1, center[1]),
-        #(center[0] + radius - 2, center[1]),
         ), fill=BLACK)
     draw.line((
         center,
         (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
         ), fill=BLACK)
+
+    month_day = date.strftime("%m-%d")
 
     return image
