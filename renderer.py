@@ -176,13 +176,16 @@ def _display_weather(label, weather):
         (config.WIDTH - humidity_width, humidity_bottom - humidity_bbox[3]),
         humidity, font=large_font, fill=BLACK)
 
-    """
     windspeed = "%dm/s" % weather["wind"]["speed"]
-    (font_width, font_height) = _get_size(large_font.getbbox(windspeed))
-    xy = (config.WIDTH - font_width, old_font_y)
-    draw.text(xy, windspeed, font=large_font, fill=BLACK)
-    old_font_y = xy[1] + font_height
+    windspeed_bbox = large_font.getbbox(windspeed)
+    windspeed_y_offset = windspeed_bbox[1]
+    windspeed_width = windspeed_bbox[2]
+    windspeed_bottom = humidity_bottom + SPACING + windspeed_bbox[3] - windspeed_y_offset
+    draw.text(
+        (config.WIDTH - windspeed_width, windspeed_bottom - windspeed_bbox[3]),
+        windspeed, font=large_font, fill=BLACK)
 
+    """
     winddeg = weather["wind"]["deg"]
     midway = (config.HEIGHT - old_font_y) // 2
     lx = config.WIDTH - midway
