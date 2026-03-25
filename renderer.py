@@ -220,4 +220,14 @@ def get_weather_display(label, date, weather):
         month_day, font=large_font, fill=BLACK)
     print("month_day_top: " + str(month_day_top))
 
+    year = date.strftime("%Y-")
+    year_bbox = large_font.getbbox(year)
+    year_y_offset = year_bbox[1]
+    year_width = year_bbox[2]
+    year_top = month_day_top - SPACING - month_day_bbox[3]
+    draw.text(
+        (center[0] - radius - 1 - SPACING - year_width, year_top),
+        year, font=large_font, fill=BLACK)
+    print("year_top: " + str(year_top))
+
     return image
