@@ -2,9 +2,9 @@
     "weather": [
         {
             "id": 800,
-            "main": "Clear",
-            "description": "clear sky",
-            "icon": "01d"
+            "main": "Thunderstorm",
+            "description": "thunderstorm with heavy rain",
+            "icon": "11d"
         }
     ],
     "base": "stations",
