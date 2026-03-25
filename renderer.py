@@ -1,4 +1,5 @@
 from pathlib import Path
+import math
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -179,31 +180,39 @@ def get_weather_display(label, weather):
         humidity, font=large_font, fill=BLACK)
     print("humidity_bottom: " + str(humidity_bottom))
 
-    windspeed = "%dm/s" % weather["wind"]["speed"]
-    windspeed_bbox = large_font.getbbox(windspeed)
-    windspeed_y_offset = windspeed_bbox[1]
-    windspeed_width = windspeed_bbox[2]
-    windspeed_bottom = humidity_bottom + SPACING + windspeed_bbox[3] - windspeed_y_offset
+    wind_speed = "%dm/s" % weather["wind"]["speed"]
+    wind_speed_bbox = large_font.getbbox(wind_speed)
+    wind_speed_y_offset = wind_speed_bbox[1]
+    wind_speed_width = wind_speed_bbox[2]
+    wind_speed_bottom = humidity_bottom + SPACING + wind_speed_bbox[3] - wind_speed_y_offset
     draw.text(
-        (config.WIDTH - MARGIN_X - windspeed_width, windspeed_bottom - windspeed_bbox[3]),
-        windspeed, font=large_font, fill=BLACK)
-    print("windspeed_bottom: " + str(windspeed_bottom))
+        (config.WIDTH - MARGIN_X - wind_speed_width, wind_speed_bottom - wind_speed_bbox[3]),
+        wind_speed, font=large_font, fill=BLACK)
+    print("wind_speed_bottom: " + str(wind_speed_bottom))
 
-    winddeg = weather["wind"]["deg"]
-    midway = (config.HEIGHT - windspeed_bottom) // 2
+    wind_deg = weather["wind"]["deg"]
+    wind_radians = math.radians((270 - wind_deg) % 360)
+    midway = (config.HEIGHT - wind_speed_bottom) // 2
     center = (config.WIDTH - midway, config.HEIGHT - midway)
     radius = config.HEIGHT - 1 - MARGIN_Y - center[1]
     draw.circle(center, radius, outline=BLACK)
     draw.point((
+        (center[0], center[1] - radius - 1),
         (center[0], center[1] - radius + 1),
-        (center[0], center[1] - radius + 2),
+        #(center[0], center[1] - radius + 2),
+        (center[0], center[1] + radius + 1),
         (center[0], center[1] + radius - 1),
-        (center[0], center[1] + radius - 2),
+        #(center[0], center[1] + radius - 2),
+        (center[0] - radius - 1, center[1]),
         (center[0] - radius + 1, center[1]),
-        (center[0] - radius + 2, center[1]),
+        #(center[0] - radius + 2, center[1]),
+        (center[0] + radius + 1, center[1]),
         (center[0] + radius - 1, center[1]),
-        (center[0] + radius - 2, center[1]),
+        #(center[0] + radius - 2, center[1]),
         ), fill=BLACK)
-    draw.line((center, (center[0], center[1] - radius)), fill=BLACK)
+    draw.line((
+        center,
+        (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
+        ), fill=BLACK)
 
     return image
