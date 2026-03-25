@@ -1,8 +1,7 @@
-import os
+from pathlib import Path
 import json
 
-_SRC_DIRECTORY = os.path.dirname(__file__)
-_CONFIG_FILE = os.path.join(_SRC_DIRECTORY, 'config.json')
+_CONFIG_FILE = Path(__file__).parent / 'config.json'
 _config = None
 with open(_CONFIG_FILE) as file:
     _config = json.load(file)
