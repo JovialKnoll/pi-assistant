@@ -33,6 +33,8 @@ down_button = digitalio.DigitalInOut(board.D5)
 down_button.switch_to_input()
 down_switch = Debouncer(down_button)
 
+page_count = len(config.CONFIG_PAGES)
+
 
 class ImageThread(threading.Thread):
     def __init__(self, images, refreshes, thread_id):
@@ -53,11 +55,11 @@ class ImageThread(threading.Thread):
 
 
 def main():
-    images = [None] * renderer.page_count
-    refreshes = [False] * renderer.page_count
+    images = [None] * page_count
+    refreshes = [False] * page_count
     threads = [
         ImageThread(images, refreshes, i)
-        for i in range(renderer.page_count)
+        for i in range(page_count)
     ]
     for thread in threads:
         thread.start()
@@ -68,11 +70,11 @@ def main():
         down_switch.update()
         if up_switch.fell:
             page_index -= 1
-            page_index %= renderer.page_count
+            page_index %= page_count
             refreshes[page_index] = True
         if down_switch.fell:
             page_index += 1
-            page_index %= renderer.page_count
+            page_index %= page_count
             refreshes[page_index] = True
         if refreshes[page_index] and images[page_index]:
             display.image(images[page_index])

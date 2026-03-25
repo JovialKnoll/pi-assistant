@@ -63,7 +63,7 @@ _width_for_temp_both = _get_size(large_font.getbbox("100°F000°C"))[0]
 
 
 # bbox = left, upper, right, and lower pixel
-def _display_weather(weather, label):
+def _display_weather(label, weather):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
@@ -167,20 +167,9 @@ def _display_weather(weather, label):
     return image
 
 
-def _get_weather_display(lat, long, label):
-    weather = data.get_weather(lat, long)
-    if not weather:
-        return None
-    return _display_weather(weather, label)
-
-
-page_count = len(config.CONFIG_PAGES)
-
-
 def get_page(page_index):
     page_config = config.CONFIG_PAGES[page_index]
-    return _get_weather_display(
-        page_config['lat'],
-        page_config['long'],
-        page_config['label']
-    )
+    weather = data.get_weather(page_config['lat'], page_config['long'])
+    if not weather:
+        return None
+    return _display_weather(page_config['label'], weather)
