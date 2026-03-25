@@ -13,6 +13,7 @@ from adafruit_epd.ssd1680 import Adafruit_SSD1680
 from PIL import ImageChops
 
 import config
+import data
 import renderer
 
 
@@ -46,11 +47,14 @@ class ImageThread(threading.Thread):
     def run(self):
         while True:
             current_image = self.images[self.thread_id]
-            new_image = renderer.get_page(self.thread_id)
-            if not current_image \
-            or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
-                self.images[self.thread_id] = new_image
-                self.refreshes[self.thread_id] = True
+            page_config = config.CONFIG_PAGES[self.thread_id]
+            weather = data.get_weather(page_config['lat'], page_config['long'])
+            if weather:
+                new_image = renderer.get_weather_display(page_config['label'], weather)
+                if not current_image \
+                or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
+                    self.images[self.thread_id] = new_image
+                    self.refreshes[self.thread_id] = True
             time.sleep(config.DELAY)
 
 

@@ -3,7 +3,6 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 import config
-import data
 
 
 # drawing vars
@@ -62,8 +61,7 @@ full_temp_c_width = large_font.getbbox("000°C")[2]
 full_temp_both_width = large_font.getbbox("100°F000°C")[2]
 
 
-# bbox = left, upper, right, and lower pixel
-def _display_weather(label, weather):
+def get_weather_display(label, weather):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
@@ -195,11 +193,3 @@ def _display_weather(label, weather):
     draw.line((center, (center[0], center[1] - radius)), fill=BLACK)
 
     return image
-
-
-def get_page(page_index):
-    page_config = config.CONFIG_PAGES[page_index]
-    weather = data.get_weather(page_config['lat'], page_config['long'])
-    if not weather:
-        return None
-    return _display_weather(page_config['label'], weather)
