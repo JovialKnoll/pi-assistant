@@ -112,7 +112,7 @@ def _display_weather(label, weather):
     temp_c_width = temp_c_bbox[2]
     temp_c_bottom = MARGIN_Y + temp_c_bbox[3] - temp_c_y_offset
     draw.text(
-        (config.WIDTH - temp_c_width, temp_c_bottom - temp_c_bbox[3]),
+        (config.WIDTH - MARGIN_X - temp_c_width, temp_c_bottom - temp_c_bbox[3]),
         temp_c, font=large_font, fill=BLACK)
     print("temp_c_bottom: " + str(temp_c_bottom))
 
@@ -123,7 +123,7 @@ def _display_weather(label, weather):
     temp_f_width = temp_f_bbox[2]
     temp_f_bottom = MARGIN_Y + temp_f_bbox[3] - temp_f_y_offset
     draw.text(
-        (config.WIDTH - full_temp_c_width - temp_f_width, temp_f_bottom - temp_f_bbox[3]),
+        (config.WIDTH - MARGIN_X - full_temp_c_width - temp_f_width, temp_f_bottom - temp_f_bbox[3]),
         temp_f, font=large_font, fill=BLACK)
     print("temp_f_bottom: " + str(temp_f_bottom))
 
@@ -134,7 +134,7 @@ def _display_weather(label, weather):
     feels_like_c_width = feels_like_c_bbox[2]
     feels_like_c_bottom = temp_c_bottom + SPACING + feels_like_c_bbox[3] - feels_like_c_y_offset
     draw.text(
-        (config.WIDTH - feels_like_c_width, feels_like_c_bottom - feels_like_c_bbox[3]),
+        (config.WIDTH - MARGIN_X - feels_like_c_width, feels_like_c_bottom - feels_like_c_bbox[3]),
         feels_like_c, font=large_font, fill=BLACK)
     print("feels_like_c_bottom: " + str(feels_like_c_bottom))
 
@@ -145,7 +145,7 @@ def _display_weather(label, weather):
     feels_like_f_width = feels_like_f_bbox[2]
     feels_like_f_bottom = temp_f_bottom + SPACING + feels_like_f_bbox[3] - feels_like_f_y_offset
     draw.text(
-        (config.WIDTH - full_temp_c_width - feels_like_f_width, feels_like_f_bottom - feels_like_f_bbox[3]),
+        (config.WIDTH - MARGIN_X - full_temp_c_width - feels_like_f_width, feels_like_f_bottom - feels_like_f_bbox[3]),
         feels_like_f, font=large_font, fill=BLACK)
     print("feels_like_f_bottom: " + str(feels_like_f_bottom))
 
@@ -154,7 +154,7 @@ def _display_weather(label, weather):
     feels_width = feels_bbox[2]
     feels_bottom = temp_f_bottom + SPACING + feels_bbox[3] - feels_y_offset
     draw.text(
-        (config.WIDTH - full_temp_both_width - feels_width, feels_bottom - feels_bbox[3]),
+        (config.WIDTH - MARGIN_X - full_temp_both_width - feels_width, feels_bottom - feels_bbox[3]),
         "feels", font=small_font, fill=BLACK)
     print("feels_bottom: " + str(feels_bottom))
 
@@ -163,7 +163,7 @@ def _display_weather(label, weather):
     like_width = like_bbox[2]
     like_bottom = feels_bottom + SPACING + like_bbox[3] - like_y_offset
     draw.text(
-        (config.WIDTH - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
+        (config.WIDTH - MARGIN_X - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
         "like", font=small_font, fill=BLACK)
     print("like_bottom: " + str(like_bottom))
 
@@ -173,7 +173,7 @@ def _display_weather(label, weather):
     humidity_width = humidity_bbox[2]
     humidity_bottom = feels_like_c_bottom + SPACING + humidity_bbox[3] - humidity_y_offset
     draw.text(
-        (config.WIDTH - humidity_width, humidity_bottom - humidity_bbox[3]),
+        (config.WIDTH - MARGIN_X - humidity_width, humidity_bottom - humidity_bbox[3]),
         humidity, font=large_font, fill=BLACK)
 
     windspeed = "%dm/s" % weather["wind"]["speed"]
@@ -182,7 +182,7 @@ def _display_weather(label, weather):
     windspeed_width = windspeed_bbox[2]
     windspeed_bottom = humidity_bottom + SPACING + windspeed_bbox[3] - windspeed_y_offset
     draw.text(
-        (config.WIDTH - windspeed_width, windspeed_bottom - windspeed_bbox[3]),
+        (config.WIDTH - MARGIN_X - windspeed_width, windspeed_bottom - windspeed_bbox[3]),
         windspeed, font=large_font, fill=BLACK)
 
     """
