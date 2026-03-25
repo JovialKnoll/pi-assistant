@@ -177,6 +177,8 @@ def get_weather_display(label, date, weather):
     month_day_width = month_day_bbox[2]
     month_day_height = month_day_bbox[3] - month_day_y_offset
     month_day_top = main_top - SPACING - month_day_height
+    gap = month_day_top - like_bottom - SPACING
+    month_day_top -= gap // 2
     draw.text(
         (icon_right + SPACING, month_day_top - month_day_y_offset),
         month_day, font=large_font, fill=BLACK)
