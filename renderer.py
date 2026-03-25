@@ -196,19 +196,28 @@ def get_weather_display(label, date, weather):
     radius = config.HEIGHT - 1 - MARGIN_Y - center[1]
     draw.circle(center, radius, outline=BLACK)
     draw.point((
-        (center[0], center[1] - radius - 1),
+        #(center[0], center[1] - radius - 1),
         (center[0], center[1] - radius + 1),
-        (center[0], center[1] + radius + 1),
+        #(center[0], center[1] + radius + 1),
         (center[0], center[1] + radius - 1),
-        (center[0] - radius - 1, center[1]),
+        #(center[0] - radius - 1, center[1]),
         (center[0] - radius + 1, center[1]),
-        (center[0] + radius + 1, center[1]),
+        #(center[0] + radius + 1, center[1]),
         (center[0] + radius - 1, center[1]),
         ), fill=BLACK)
     draw.line((
         center,
         (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
         ), fill=BLACK)
+    #arrow_radius = radius * 3 // 4
+    #arrow_spread = 10
+    #arrow_radians_left = math.radians((270 - wind_deg - arrow_spread) % 360)
+    #arrow_radians_right = math.radians((270 - wind_deg + arrow_spread) % 360)
+    #draw.polygon((
+    #    (center[0] - arrow_radius * math.cos(arrow_radians_left), center[1] + arrow_radius * math.sin(arrow_radians_left)),
+    #    (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
+    #    (center[0] - arrow_radius * math.cos(arrow_radians_right), center[1] + arrow_radius * math.sin(arrow_radians_right)),
+    #    ), fill=BLACK, outline=BLACK)
 
     month_day = date.strftime("%m-%d")
     month_day_bbox = large_font.getbbox(month_day)
