@@ -167,13 +167,16 @@ def _display_weather(label, weather):
         "like", font=small_font, fill=BLACK)
     print("like_bottom: " + str(like_bottom))
 
-    """
     humidity = "%d%%" % weather["main"]["humidity"]
-    (font_width, font_height) = _get_size(large_font.getbbox(humidity))
-    xy = (config.WIDTH - font_width, feels_like_f_bottom)
-    draw.text(xy, humidity, font=large_font, fill=BLACK)
-    old_font_y = xy[1] + font_height
+    humidity_bbox = large_font.getbbox(humidity)
+    humidity_y_offset = humidity_bbox[1]
+    humidity_width = humidity_bbox[2]
+    humidity_bottom = feels_like_c_bottom + SPACING + humidity_bbox[3] - humidity_y_offset
+    draw.text(
+        (config.WIDTH - humidity_width, humidity_bottom - humidity_bbox[3]),
+        humidity, font=large_font, fill=BLACK)
 
+    """
     windspeed = "%dm/s" % weather["wind"]["speed"]
     (font_width, font_height) = _get_size(large_font.getbbox(windspeed))
     xy = (config.WIDTH - font_width, old_font_y)
