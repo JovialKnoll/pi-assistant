@@ -194,6 +194,16 @@ def get_weather_display(label, weather):
     center = (config.WIDTH - midway, config.HEIGHT - midway)
     radius = config.HEIGHT - 1 - MARGIN_Y - center[1]
     draw.circle(center, radius, outline=BLACK)
+    draw.point((
+        (center[0], center[1] - radius + 1),
+        (center[0], center[1] - radius + 2),
+        (center[0], center[1] + radius - 1),
+        (center[0], center[1] + radius - 2),
+        (center[0] - radius + 1, center[1]),
+        (center[0] - radius + 2, center[1]),
+        (center[0] + radius - 1, center[1]),
+        (center[0] + radius - 2, center[1]),
+        ), fill=BLACK)
     draw.line((center, (center[0], center[1] - radius)), fill=BLACK)
 
     return image
