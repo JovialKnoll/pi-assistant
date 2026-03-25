@@ -53,7 +53,7 @@ medium_font_example_height = medium_font_example_bbox[3] - medium_font_example_b
 large_font_example_bbox = large_font.getbbox(example_text)
 large_font_example_height = large_font_example_bbox[3] - large_font_example_bbox[1]
 full_temp_c_width = large_font.getbbox("-00°C")[2]
-full_temp_both_width = large_font.getbbox("100°F-00°C")[2]
+full_temp_both_width = full_temp_c_width + large_font.getbbox("100°F")[2]
 
 
 def _get_celsius(kelvin):
