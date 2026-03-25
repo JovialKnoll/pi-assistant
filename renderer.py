@@ -175,6 +175,7 @@ def _display_weather(label, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - humidity_width, humidity_bottom - humidity_bbox[3]),
         humidity, font=large_font, fill=BLACK)
+    print("humidity_bottom: " + str(humidity_bottom))
 
     windspeed = "%dm/s" % weather["wind"]["speed"]
     windspeed_bbox = large_font.getbbox(windspeed)
@@ -184,18 +185,14 @@ def _display_weather(label, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - windspeed_width, windspeed_bottom - windspeed_bbox[3]),
         windspeed, font=large_font, fill=BLACK)
+    print("windspeed_bottom: " + str(windspeed_bottom))
 
-    """
     winddeg = weather["wind"]["deg"]
-    midway = (config.HEIGHT - old_font_y) // 2
-    lx = config.WIDTH - midway
-    ly = config.HEIGHT - midway
-    #print(old_font_y)
-    #print(config.HEIGHT)
-    #print((lx, ly))
-    draw.circle((lx, ly), 14, outline=BLACK)
-    draw.line(((lx, ly), (lx, ly - 14)), fill=BLACK)
-    """
+    midway = (config.HEIGHT - windspeed_bottom) // 2
+    center = (config.WIDTH - midway, config.HEIGHT - midway)
+    radius = config.HEIGHT - 1 - MARGIN_Y - center[1]
+    draw.circle(center, radius, outline=BLACK)
+    draw.line((center, (center[0], center[1] - radius)), fill=BLACK)
 
     return image
 
