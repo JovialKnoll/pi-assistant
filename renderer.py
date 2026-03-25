@@ -110,9 +110,9 @@ def _display_weather(label, weather):
     temp_c_bbox = large_font.getbbox(temp_c)
     temp_c_y_offset = temp_c_bbox[1]
     temp_c_width = temp_c_bbox[2]
-    temp_c_bottom = temp_c_bbox[3] - temp_c_y_offset
+    temp_c_bottom = MARGIN_Y + temp_c_bbox[3] - temp_c_y_offset
     draw.text(
-        (config.WIDTH - temp_c_width, MARGIN_Y - temp_c_y_offset),
+        (config.WIDTH - temp_c_width, temp_c_bottom - temp_c_bbox[3]),
         temp_c, font=large_font, fill=BLACK)
     print("temp_c_bottom: " + str(temp_c_bottom))
 
@@ -121,20 +121,20 @@ def _display_weather(label, weather):
     temp_f_bbox = large_font.getbbox(temp_f)
     temp_f_y_offset = temp_f_bbox[1]
     temp_f_width = temp_f_bbox[2]
-    temp_f_bottom = temp_f_bbox[3] - temp_f_y_offset
+    temp_f_bottom = MARGIN_Y + temp_f_bbox[3] - temp_f_y_offset
     draw.text(
-        (config.WIDTH - full_temp_c_width - temp_f_width, MARGIN_Y - temp_f_y_offset),
+        (config.WIDTH - full_temp_c_width - temp_f_width, temp_f_bottom - temp_f_bbox[3]),
         temp_f, font=large_font, fill=BLACK)
     print("temp_f_bottom: " + str(temp_f_bottom))
-    """
+
     feels_like_c_num = _get_celsius(weather["main"]["feels_like"])
     feels_like_c = "%d°C" % round(feels_like_c_num)
     feels_like_c_bbox = large_font.getbbox(feels_like_c)
     feels_like_c_y_offset = feels_like_c_bbox[1]
     feels_like_c_width = feels_like_c_bbox[2]
-    feels_like_c_bottom = MARGIN_Y + temp_c_bottom + SPACING + feels_like_c_bbox[3] - feels_like_c_y_offset
+    feels_like_c_bottom = temp_c_bottom + SPACING + feels_like_c_bbox[3] - feels_like_c_y_offset
     draw.text(
-        (config.WIDTH - feels_like_c_width, MARGIN_Y + temp_c_bottom + SPACING - feels_like_c_y_offset),
+        (config.WIDTH - feels_like_c_width, feels_like_c_bottom - feels_like_c_bbox[3]),
         feels_like_c, font=large_font, fill=BLACK)
     print("feels_like_c_bottom: " + str(feels_like_c_bottom))
 
@@ -143,21 +143,31 @@ def _display_weather(label, weather):
     feels_like_f_bbox = large_font.getbbox(feels_like_f)
     feels_like_f_y_offset = feels_like_f_bbox[1]
     feels_like_f_width = feels_like_f_bbox[2]
-    feels_like_f_bottom = MARGIN_Y + temp_f_bottom + SPACING + feels_like_f_bbox[3] - feels_like_f_y_offset
+    feels_like_f_bottom = temp_f_bottom + SPACING + feels_like_f_bbox[3] - feels_like_f_y_offset
     draw.text(
-        (config.WIDTH - full_temp_c_width - feels_like_f_width, MARGIN_Y + temp_f_bottom + SPACING - feels_like_f_y_offset),
+        (config.WIDTH - full_temp_c_width - feels_like_f_width, feels_like_f_bottom - feels_like_f_bbox[3]),
         feels_like_f, font=large_font, fill=BLACK)
     print("feels_like_f_bottom: " + str(feels_like_f_bottom))
 
-    (font_width, font_height) = _get_size(small_font.getbbox("feels"))
-    xy = (config.WIDTH - font_width - full_temp_both_width, feels_like_f_bottom - feels_like_f_bbox[3])
-    draw.text(xy, "feels", font=small_font, fill=BLACK)
-    feels_font_height = font_height
+    feels_bbox = small_font.getbbox("feels")
+    feels_y_offset = feels_bbox[1]
+    feels_width = feels_bbox[2]
+    feels_bottom = label_bottom + SPACING + SPACING + feels_bbox[3] - feels_y_offset
+    draw.text(
+        (config.WIDTH - full_temp_both_width - feels_width, feels_bottom - feels_bbox[3]),
+        "feels", font=small_font, fill=BLACK)
+    print("feels_bottom: " + str(feels_bottom))
 
-    (font_width, font_height) = _get_size(small_font.getbbox("like"))
-    xy = (config.WIDTH - font_width - full_temp_both_width, feels_like_f_bottom - feels_like_f_bbox[3] + feels_font_height)
-    draw.text(xy, "like", font=small_font, fill=BLACK)
+    like_bbox = small_font.getbbox("like")
+    like_y_offset = like_bbox[1]
+    like_width = like_bbox[2]
+    like_bottom = feels_bottom + SPACING + like_bbox[3] - like_y_offset
+    draw.text(
+        (config.WIDTH - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
+        "like", font=small_font, fill=BLACK)
+    print("like_bottom: " + str(like_bottom))
 
+    """
     humidity = "%d%%" % weather["main"]["humidity"]
     (font_width, font_height) = _get_size(large_font.getbbox(humidity))
     xy = (config.WIDTH - font_width, feels_like_f_bottom)
