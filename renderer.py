@@ -211,5 +211,13 @@ def get_weather_display(label, date, weather):
         ), fill=BLACK)
 
     month_day = date.strftime("%m-%d")
+    month_day_bbox = large_font.getbbox(month_day)
+    month_day_y_offset = month_day_bbox[1]
+    month_day_width = month_day_bbox[2]
+    month_day_top = config.HEIGHT - MARGIN_Y - month_day_bbox[3]
+    draw.text(
+        (center[0] - radius - 1 - SPACING - month_day_width, month_day_top),
+        month_day, font=large_font, fill=BLACK)
+    print("month_day_top: " + str(month_day_top))
 
     return image
