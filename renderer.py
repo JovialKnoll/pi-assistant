@@ -44,6 +44,17 @@ MARGIN_X = 0
 MARGIN_Y = 1
 SPACING = 1
 
+example_text = "XxYyPpQqGgJj"
+small_font_example_bbox = small_font.getbbox(example_text)
+small_font_example_height = small_font_example_bbox[3] - small_font_example_bbox[1]
+medium_font_example_bbox = medium_font.getbbox(example_text)
+medium_font_example_height = medium_font_example_bbox[3] - medium_font_example_bbox[1]
+large_font_example_bbox = large_font.getbbox(example_text)
+large_font_example_height = large_font_example_bbox[3] - large_font_example_bbox[1]
+
+full_temp_c_width = large_font.getbbox("000°C")[2]
+full_temp_both_width = large_font.getbbox("100°F000°C")[2]
+
 
 def _get_celsius(kelvin):
     return kelvin - 273.15
@@ -51,14 +62,6 @@ def _get_celsius(kelvin):
 
 def _get_fahrenheit(celsius):
     return (celsius * 9/5) + 32
-
-
-def _get_size(bbox):
-    return (bbox[2] - bbox[0], bbox[3] - bbox[1])
-
-
-full_temp_c_width = large_font.getbbox("000°C")[2]
-full_temp_both_width = large_font.getbbox("100°F000°C")[2]
 
 
 def get_weather_display(label, weather):
@@ -76,9 +79,10 @@ def get_weather_display(label, weather):
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
     description_bbox = small_font.getbbox(description)
+
     description_y_offset = description_bbox[1]
-    description_height = description_bbox[3] - description_y_offset
-    description_top = config.HEIGHT - MARGIN_Y - description_height
+    #description_height = description_bbox[3] - description_y_offset
+    description_top = config.HEIGHT - MARGIN_Y - small_font_example_height
     draw.text(
         (MARGIN_X, description_top - description_y_offset),
         description, font=small_font, fill=BLACK)
@@ -87,8 +91,8 @@ def get_weather_display(label, weather):
     main = weather["weather"][0]["main"]
     main_bbox = large_font.getbbox(main)
     main_y_offset = main_bbox[1]
-    main_height = main_bbox[3] - main_y_offset
-    main_top = description_top - SPACING - main_height
+    #main_height = main_bbox[3] - main_y_offset
+    main_top = description_top - SPACING - large_font_example_height
     draw.text(
         (MARGIN_X, main_top - main_y_offset),
         main, font=large_font, fill=BLACK)
