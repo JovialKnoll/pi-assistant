@@ -64,29 +64,33 @@ def _display_weather(weather, label):
     image = Image.new("RGB", (config.WIDTH, config.HEIGHT), color=WHITE)
     draw = ImageDraw.Draw(image)
 
+    margin_x = 0
+    margin_y = 1
+
     label_bbox = medium_font.getbbox(label)
     label_y_offset = label_bbox[1]
-    label_y_bottom = label_bbox[3] - label_y_offset
-    draw.text((0, 1 - label_y_offset), label, font=medium_font, fill=BLACK)
-    print("label_y_bottom: " + str(label_y_bottom))
+    label_bottom = label_bbox[3] - label_y_offset
+    draw.text((margin_x, margin_y - label_y_offset), label, font=medium_font, fill=BLACK)
+    print("label_bottom: " + str(label_bottom))
     
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
-    bbox = small_font.getbbox(description)
-    font_height = bbox[3] - bbox[1]
-    old_font_top = config.HEIGHT - 1 - font_height
-    draw.text((0, old_font_top - bbox[1]), description, font=small_font, fill=BLACK)
+    description_bbox = small_font.getbbox(description)
+    description_y_offset = description_bbox[1]
+    description_height = description_bbox[3] - description_bbox[1]
+    description_top = config.HEIGHT - margin_y - description_height
+    draw.text((margin_x, description_top - description_y_offset), description, font=small_font, fill=BLACK)
 
     main = weather["weather"][0]["main"]
     bbox = large_font.getbbox(main)
     font_height = bbox[3] - bbox[1]
-    old_font_top = old_font_top - 1 - font_height
-    xy = (0, old_font_top - bbox[1])
+    description_top = description_top - 1 - font_height
+    xy = (0, description_top - bbox[1])
     draw.text(xy, main, font=large_font, fill=BLACK)
 
     weather_icon = ICON_MAP[weather["weather"][0]["icon"]]
     (font_width, font_height) = _get_size(icon_font.getbbox(weather_icon))
-    xy = (0, label_y_bottom + (xy[1] - label_y_bottom) // 2 - font_height // 2)
+    xy = (0, label_bottom + (xy[1] - label_bottom) // 2 - font_height // 2)
     draw.text(xy, weather_icon, font=icon_font, fill=BLACK)
 
     temp_c = _get_celsius(weather["main"]["temp"])
