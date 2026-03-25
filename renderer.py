@@ -214,9 +214,9 @@ def get_weather_display(label, date, weather):
     month_day_bbox = large_font.getbbox(month_day)
     month_day_y_offset = month_day_bbox[1]
     month_day_width = month_day_bbox[2]
-    month_day_top = config.HEIGHT - MARGIN_Y - month_day_bbox[3]
+    month_day_top = config.HEIGHT - MARGIN_Y - month_day_bbox[3] + month_day_y_offset
     draw.text(
-        (center[0] - radius - 1 - SPACING - month_day_width, month_day_top),
+        (center[0] - radius - 1 - SPACING - month_day_width, month_day_top - month_day_y_offset),
         month_day, font=large_font, fill=BLACK)
     print("month_day_top: " + str(month_day_top))
 
@@ -224,9 +224,9 @@ def get_weather_display(label, date, weather):
     year_bbox = large_font.getbbox(year)
     year_y_offset = year_bbox[1]
     year_width = year_bbox[2]
-    year_top = month_day_top - SPACING - month_day_bbox[3]
+    year_top = month_day_top - SPACING - month_day_bbox[3] + year_y_offset
     draw.text(
-        (center[0] - radius - 1 - SPACING - year_width, year_top),
+        (center[0] - radius - 1 - SPACING - year_width, year_top - year_y_offset),
         year, font=large_font, fill=BLACK)
     print("year_top: " + str(year_top))
 
