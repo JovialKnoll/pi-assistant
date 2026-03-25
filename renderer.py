@@ -43,7 +43,7 @@ large_font = ImageFont.truetype(
     24)
 icon_font = ImageFont.truetype(
     Path(__file__).parent / 'fonts' / 'meteocons.ttf',
-    48)
+    54)
 
 example_text = "XxYyPpQqGgJj"
 small_font_example_bbox = small_font.getbbox(example_text)
@@ -104,7 +104,7 @@ def get_weather_display(label, weather):
     icon_height = icon_bbox[3] - icon_y_offset
     icon_top = main_top - SPACING - icon_height
     draw.text(
-        (MARGIN_X, icon_top - icon_y_offset),
+        (MARGIN_X + SPACING, icon_top - icon_y_offset),
         icon, font=icon_font, fill=BLACK)
 
     temp_c_num = _get_celsius(weather["main"]["temp"])
