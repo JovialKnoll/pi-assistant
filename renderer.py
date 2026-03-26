@@ -75,29 +75,24 @@ def get_weather_display(label, date, weather):
     draw.text(
         (MARGIN_X, MARGIN_Y - label_y_offset),
         label, font=medium_font, fill=BLACK)
-    print("label_bottom: " + str(label_bottom))
 
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
     description_bbox = small_font.getbbox(description)
 
     description_y_offset = description_bbox[1]
-    #description_height = description_bbox[3] - description_y_offset
     description_top = config.HEIGHT - MARGIN_Y - small_font_example_height
     draw.text(
         (MARGIN_X, description_top - description_y_offset),
         description, font=small_font, fill=BLACK)
-    print("description_top: " + str(description_top))
 
     main = weather["weather"][0]["main"]
     main_bbox = large_font.getbbox(main)
     main_y_offset = main_bbox[1]
-    #main_height = main_bbox[3] - main_y_offset
     main_top = description_top - SPACING - large_font_example_height
     draw.text(
         (MARGIN_X, main_top - main_y_offset),
         main, font=large_font, fill=BLACK)
-    print("main_top: " + str(main_top))
 
     icon = ICON_MAP[weather["weather"][0]["icon"]]
     icon_bbox = icon_font.getbbox(icon)
@@ -119,7 +114,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - temp_c_width, temp_c_bottom - temp_c_bbox[3]),
         temp_c, font=large_font, fill=BLACK)
-    print("temp_c_bottom: " + str(temp_c_bottom))
 
     temp_f_num = _get_fahrenheit(temp_c_num)
     temp_f = "%d°F" % round(temp_f_num)
@@ -130,7 +124,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - full_temp_c_width - temp_f_width, temp_f_bottom - temp_f_bbox[3]),
         temp_f, font=large_font, fill=BLACK)
-    print("temp_f_bottom: " + str(temp_f_bottom))
 
     feels_like_c_num = _get_celsius(weather["main"]["feels_like"])
     feels_like_c = "%d°C" % round(feels_like_c_num)
@@ -141,7 +134,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - feels_like_c_width, feels_like_c_bottom - feels_like_c_bbox[3]),
         feels_like_c, font=large_font, fill=BLACK)
-    print("feels_like_c_bottom: " + str(feels_like_c_bottom))
 
     feels_like_f_num = _get_fahrenheit(feels_like_c_num)
     feels_like_f = "%d°F" % round(feels_like_f_num)
@@ -152,7 +144,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - full_temp_c_width - feels_like_f_width, feels_like_f_bottom - feels_like_f_bbox[3]),
         feels_like_f, font=large_font, fill=BLACK)
-    print("feels_like_f_bottom: " + str(feels_like_f_bottom))
 
     feels_bbox = small_font.getbbox("feels")
     feels_y_offset = feels_bbox[1]
@@ -161,7 +152,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - full_temp_both_width - feels_width, feels_bottom - feels_bbox[3]),
         "feels", font=small_font, fill=BLACK)
-    print("feels_bottom: " + str(feels_bottom))
 
     like_bbox = small_font.getbbox("like")
     like_y_offset = like_bbox[1]
@@ -170,7 +160,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
         "like", font=small_font, fill=BLACK)
-    print("like_bottom: " + str(like_bottom))
 
     month_day = date.strftime("%m-%d")
     month_day_bbox = large_font.getbbox(month_day)
@@ -195,7 +184,6 @@ def get_weather_display(label, date, weather):
             month_day_top + month_day_height + 1 + rect_spacing,
         ),
         radius=8, outline=BLACK)
-    print("month_day_top: " + str(month_day_top))
 
     humidity = "%d%%" % weather["main"]["humidity"]
     humidity_bbox = large_font.getbbox(humidity)
@@ -205,7 +193,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - humidity_width, humidity_bottom - humidity_bbox[3]),
         humidity, font=large_font, fill=BLACK)
-    print("humidity_bottom: " + str(humidity_bottom))
 
     wind_speed = "%dm/s" % weather["wind"]["speed"]
     wind_speed_bbox = large_font.getbbox(wind_speed)
@@ -215,7 +202,6 @@ def get_weather_display(label, date, weather):
     draw.text(
         (config.WIDTH - MARGIN_X - wind_speed_width, wind_speed_bottom - wind_speed_bbox[3]),
         wind_speed, font=large_font, fill=BLACK)
-    print("wind_speed_bottom: " + str(wind_speed_bottom))
 
     wind_deg = weather["wind"]["deg"]
     wind_radians = math.radians((270 - wind_deg) % 360)
@@ -224,27 +210,14 @@ def get_weather_display(label, date, weather):
     radius = config.HEIGHT - MARGIN_Y - small_font_example_height - SPACING - center[1]
     draw.circle(center, radius, outline=BLACK)
     draw.point((
-        #(center[0], center[1] - radius - 1),
         (center[0], center[1] - radius + 1),
-        #(center[0], center[1] + radius + 1),
         (center[0], center[1] + radius - 1),
-        #(center[0] - radius - 1, center[1]),
         (center[0] - radius + 1, center[1]),
-        #(center[0] + radius + 1, center[1]),
         (center[0] + radius - 1, center[1]),
         ), fill=BLACK)
     draw.line((
         center,
         (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
         ), fill=BLACK)
-    #arrow_radius = radius * 3 // 4
-    #arrow_spread = 10
-    #arrow_radians_left = math.radians((270 - wind_deg - arrow_spread) % 360)
-    #arrow_radians_right = math.radians((270 - wind_deg + arrow_spread) % 360)
-    #draw.polygon((
-    #    (center[0] - arrow_radius * math.cos(arrow_radians_left), center[1] + arrow_radius * math.sin(arrow_radians_left)),
-    #    (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
-    #    (center[0] - arrow_radius * math.cos(arrow_radians_right), center[1] + arrow_radius * math.sin(arrow_radians_right)),
-    #    ), fill=BLACK, outline=BLACK)
 
     return image
