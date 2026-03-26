@@ -54,6 +54,7 @@ large_font_example_bbox = large_font.getbbox(example_text)
 large_font_example_height = large_font_example_bbox[3] - large_font_example_bbox[1]
 full_temp_c_width = large_font.getbbox("-00°C")[2]
 full_temp_both_width = full_temp_c_width + large_font.getbbox("100°F")[2]
+full_wind_speed_width = large_font.getbbox("100m/s")[2]
 
 
 def _get_celsius(kelvin):
@@ -175,12 +176,15 @@ def get_weather_display(label, date, weather):
     month_day_bbox = large_font.getbbox(month_day)
     month_day_y_offset = month_day_bbox[1]
     month_day_width = month_day_bbox[2]
+    month_day_right = icon_right + SPACING + month_day_width
+    right_gap = config.WIDTH - MARGIN_X - full_wind_speed_width - SPACING - month_day_right
+    month_day_right += right_gap // 2
     month_day_height = month_day_bbox[3] - month_day_y_offset
     month_day_top = main_top - SPACING - month_day_height
-    gap = month_day_top - like_bottom - SPACING
-    month_day_top -= gap // 2
+    top_gap = month_day_top - like_bottom - SPACING
+    month_day_top -= top_gap // 2
     draw.text(
-        (icon_right + SPACING, month_day_top - month_day_y_offset),
+        (month_day_right - month_day_width, month_day_top - month_day_y_offset),
         month_day, font=large_font, fill=BLACK)
     print("month_day_top: " + str(month_day_top))
 
