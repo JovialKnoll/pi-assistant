@@ -219,9 +219,9 @@ def get_weather_display(label, date, weather):
 
     wind_deg = weather["wind"]["deg"]
     wind_radians = math.radians((270 - wind_deg) % 360)
-    midway = (config.HEIGHT - wind_speed_bottom) // 2
-    center = (config.WIDTH - midway, config.HEIGHT - midway)
-    radius = config.HEIGHT - 1 - MARGIN_Y - center[1]
+    midway = (config.HEIGHT - small_font_example_height - wind_speed_bottom) // 2
+    center = (config.WIDTH - midway - SPACING, config.HEIGHT - small_font_example_height - SPACING - midway)
+    radius = config.HEIGHT - MARGIN_Y - small_font_example_height - SPACING - center[1]
     draw.circle(center, radius, outline=BLACK)
     draw.point((
         #(center[0], center[1] - radius - 1),
