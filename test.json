@@ -1,0 +1,29 @@
+{
+    "weather": [
+        {
+            "id": 800,
+            "main": "Thunderstorm",
+            "description": "thunderstorm with heavy rain",
+            "icon": "11d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 294.72,
+        "feels_like": 293.34,
+        "temp_min": 280.46,
+        "temp_max": 283.25,
+        "pressure": 1028,
+        "humidity": 48,
+        "sea_level": 1028,
+        "grnd_level": 1019
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 114.12,
+        "deg": 20
+    },
+    "clouds": {
+        "all": 0
+    }
+}

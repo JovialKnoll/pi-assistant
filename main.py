@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+from datetime import date
 import time
 import busio
 import board
@@ -50,7 +51,10 @@ class ImageThread(threading.Thread):
             page_config = config.CONFIG_PAGES[self.thread_id]
             weather = data.get_weather(page_config['lat'], page_config['long'])
             if weather:
-                new_image = renderer.get_weather_display(page_config['label'], weather)
+                new_image = renderer.get_weather_display(
+                    page_config['label'],
+                    date.today(),
+                    weather)
                 if not current_image \
                 or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
                     self.images[self.thread_id] = new_image

@@ -18,4 +18,6 @@ def get_weather(lat, long):
     weather = json.loads(content)
     if weather['cod'] == '404':
         return None
+    #with open('test.json', 'w') as f:
+    #    json.dump(weather, f, indent=4)
     return weather
