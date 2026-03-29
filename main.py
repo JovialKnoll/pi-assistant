@@ -9,7 +9,6 @@ import busio
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
-#from adafruit_epd.epd import Adafruit_EPD
 from adafruit_epd.ssd1680 import Adafruit_SSD1680
 from PIL import ImageChops
 
