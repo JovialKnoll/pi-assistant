@@ -183,7 +183,7 @@ def get_weather_display(label, date, weather):
             month_day_right + rect_spacing,
             month_day_top + month_day_height + 1 + rect_spacing,
         ),
-        radius=8, outline=BLACK)
+        radius=8, outline=BLACK, width=2)
 
     humidity = "%d%%" % weather["main"]["humidity"]
     humidity_bbox = large_font.getbbox(humidity)
