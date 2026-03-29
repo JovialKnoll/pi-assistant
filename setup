@@ -15,3 +15,4 @@ deactivate;
 echo "turn on SPI interface";
 echo "add the following to sudo crontab";
 echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
+echo "@reboot echo 'echo 0 | sudo tee /sys/class/leds/ACT/brightness' | at now + 2 minutes &> /dev/null";
