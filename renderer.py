@@ -175,7 +175,7 @@ def get_weather_display(label, date, weather):
     draw.text(
         (month_day_right - month_day_width, month_day_top - month_day_y_offset),
         month_day, font=large_font, fill=BLACK)
-    rect_spacing = 4
+    rect_spacing = 5
     draw.rounded_rectangle(
         (
             month_day_right - month_day_width - rect_spacing,
