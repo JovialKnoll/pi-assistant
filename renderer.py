@@ -30,7 +30,7 @@ ICON_MAP = {
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 MARGIN_X = 0
-MARGIN_Y = 1
+MARGIN_Y = 0
 SPACING = 1
 small_font = ImageFont.truetype(
     Path(__file__).parent / 'fonts' / 'dejavu' / 'DejaVuSans-Bold.ttf',
@@ -99,7 +99,7 @@ def get_weather_display(label, date, weather):
     icon_y_offset = icon_bbox[1]
     icon_height = icon_bbox[3] - icon_y_offset
     icon_width = icon_bbox[2]
-    icon_top = main_top - SPACING - icon_height
+    icon_top = main_top - SPACING - SPACING - icon_height
     icon_right = MARGIN_X + SPACING + icon_width
     draw.text(
         (icon_right - icon_width, icon_top - icon_y_offset),
@@ -175,7 +175,7 @@ def get_weather_display(label, date, weather):
     draw.text(
         (month_day_right - month_day_width, month_day_top - month_day_y_offset),
         month_day, font=large_font, fill=BLACK)
-    rect_spacing = 4
+    rect_spacing = 5
     draw.rounded_rectangle(
         (
             month_day_right - month_day_width - rect_spacing,
@@ -183,7 +183,7 @@ def get_weather_display(label, date, weather):
             month_day_right + rect_spacing,
             month_day_top + month_day_height + 1 + rect_spacing,
         ),
-        radius=8, outline=BLACK)
+        radius=8, outline=BLACK, width=2)
 
     humidity = "%d%%" % weather["main"]["humidity"]
     humidity_bbox = large_font.getbbox(humidity)
@@ -205,7 +205,7 @@ def get_weather_display(label, date, weather):
 
     wind_deg = weather["wind"]["deg"]
     wind_radians = math.radians((270 - wind_deg) % 360)
-    midway = (config.HEIGHT - small_font_example_height - wind_speed_bottom) // 2
+    midway = (config.HEIGHT - small_font_example_height - SPACING - wind_speed_bottom) // 2
     center = (config.WIDTH - midway - SPACING, config.HEIGHT - small_font_example_height - SPACING - midway)
     radius = config.HEIGHT - MARGIN_Y - small_font_example_height - SPACING - center[1]
     draw.circle(center, radius, outline=BLACK)
