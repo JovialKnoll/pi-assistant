@@ -217,7 +217,7 @@ def get_weather_display(label, date, weather):
         ), fill=BLACK)
     draw.line((
         center,
-        (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
+        (center[0] - (radius - 1) * math.cos(wind_radians), center[1] + (radius - 1) * math.sin(wind_radians)),
         ), fill=BLACK)
 
     return image
