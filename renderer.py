@@ -208,16 +208,16 @@ def get_weather_display(label, date, weather):
     midway = (config.HEIGHT - small_font_example_height - SPACING - wind_speed_bottom) // 2
     center = (config.WIDTH - midway - SPACING, config.HEIGHT - small_font_example_height - SPACING - midway)
     radius = config.HEIGHT - MARGIN_Y - small_font_example_height - SPACING - center[1]
-    draw.circle(center, radius, outline=BLACK)
+    draw.circle(center, radius, outline=BLACK, width=2)
     draw.point((
-        (center[0], center[1] - radius + 1),
-        (center[0], center[1] + radius - 1),
-        (center[0] - radius + 1, center[1]),
-        (center[0] + radius - 1, center[1]),
+        (center[0], center[1] - radius + 2),
+        (center[0], center[1] + radius - 2),
+        (center[0] - radius + 2, center[1]),
+        (center[0] + radius - 2, center[1]),
         ), fill=BLACK)
     draw.line((
         center,
-        (center[0] - radius * math.cos(wind_radians), center[1] + radius * math.sin(wind_radians)),
+        (center[0] - (radius - 1) * math.cos(wind_radians), center[1] + (radius - 1) * math.sin(wind_radians)),
         ), fill=BLACK)
 
     return image
