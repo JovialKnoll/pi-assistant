@@ -1,4 +1,4 @@
 RPi.GPIO==0.7.1
 adafruit-circuitpython-debouncer==2.0.14
-adafruit-circuitpython-epd==SOME-NEW-VERSION-HERE
+adafruit-circuitpython-epd==2.19.0
 pillow==12.1.1
