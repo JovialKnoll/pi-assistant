@@ -9,7 +9,7 @@ import busio
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
-from adafruit_epd.ssd1680 import Adafruit_SSD1680
+from adafruit_epd.ssd1680_legacy import Adafruit_SSD1680_Legacy
 from PIL import ImageChops
 
 import config
@@ -23,7 +23,9 @@ ecs = digitalio.DigitalInOut(board.CE0)
 dc = digitalio.DigitalInOut(board.D22)
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
-display = Adafruit_SSD1680(config.HEIGHT, config.WIDTH, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=None, rst_pin=rst, busy_pin=busy)
+display = Adafruit_SSD1680_Legacy(
+    config.HEIGHT, config.WIDTH,
+    spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=None, rst_pin=rst, busy_pin=busy)
 display.rotation = 1
 
 # input
