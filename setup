@@ -13,6 +13,7 @@ pip install wheel buildtools;
 pip install -r requirements.txt;
 deactivate;
 echo "turn on SPI interface";
-echo "add the following to sudo crontab";
+echo "add the following to crontab";
 echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
+echo "add the following to sudo crontab";
 echo "@reboot echo 'echo 0 | sudo tee /sys/class/leds/ACT/brightness' | at now + 2 minutes &> /dev/null";
