@@ -23,7 +23,9 @@ ecs = digitalio.DigitalInOut(board.CE0)
 dc = digitalio.DigitalInOut(board.D22)
 rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
-display = Adafruit_SSD1680_Legacy(config.HEIGHT, config.WIDTH, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=None, rst_pin=rst, busy_pin=busy)
+display = Adafruit_SSD1680_Legacy(
+    config.HEIGHT, config.WIDTH,
+    spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=None, rst_pin=rst, busy_pin=busy)
 display.rotation = 1
 
 # input
