@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
 import sys
-from datetime import date
+from datetime import date, datetime
 import time
 import threading
 
 import busio
 import board
 import digitalio
-from adafruit_debouncer import Debouncer
 from adafruit_epd.ssd1680_legacy import Adafruit_SSD1680_Legacy
+from adafruit_debouncer import Debouncer
+from croniter import croniter
 from PIL import ImageChops
 
 import config
@@ -39,6 +40,12 @@ down_switch = Debouncer(down_button)
 page_count = len(config.CONFIG_PAGES)
 
 
+def get_delay():
+    next_time =  croniter(config.CRON_EXPRESSION, datetime.now()).get_next(datetime)
+    delay = (next_time - datetime.now()).total_seconds()
+    return max(10, delay)
+
+
 class ImageThread(threading.Thread):
     def __init__(self, images, refreshes, thread_id):
         super(ImageThread, self).__init__(daemon=True)
@@ -60,7 +67,9 @@ class ImageThread(threading.Thread):
                 or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
                     self.images[self.thread_id] = new_image
                     self.refreshes[self.thread_id] = True
-            time.sleep(config.DELAY)
+            delay = get_delay()
+            print(delay)
+            time.sleep(delay)
 
 
 def main():
