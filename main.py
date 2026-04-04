@@ -67,9 +67,7 @@ class ImageThread(threading.Thread):
                 or (new_image and ImageChops.difference(current_image, new_image).getbbox()):
                     self.images[self.thread_id] = new_image
                     self.refreshes[self.thread_id] = True
-            delay = get_delay()
-            print(delay)
-            time.sleep(delay)
+            time.sleep(get_delay())
 
 
 def main():
