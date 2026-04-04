@@ -160,6 +160,14 @@ def get_weather_display(label, date, weather):
         (config.WIDTH - MARGIN_X - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
         "like", font=small_font, fill=BLACK)
 
+    day_of_week = date.strftime("%a")
+    day_of_week_bbox = medium_font.getbbox(day_of_week)
+    day_of_week_y_offset = day_of_week_bbox[1]
+    day_of_week_width = day_of_week_bbox[2]
+    draw.text(
+        (config.WIDTH - MARGIN_X - full_temp_both_width - day_of_week_width, MARGIN_Y - label_y_offset),
+        day_of_week, font=medium_font, fill=BLACK)
+
     month_day = date.strftime("%m-%d")
     month_day_bbox = large_font.getbbox(month_day)
     month_day_y_offset = month_day_bbox[1]
