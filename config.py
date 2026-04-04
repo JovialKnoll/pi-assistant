@@ -11,5 +11,4 @@ CONFIG_PAGES = _config['config_pages']
 
 WIDTH = 250
 HEIGHT = 122
-DELAY = 900
 CRON_EXPRESSION = '*/15 * * * *'
