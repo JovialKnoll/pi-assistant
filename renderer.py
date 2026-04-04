@@ -79,7 +79,6 @@ def get_weather_display(label, date, weather):
     description = weather["weather"][0]["description"]
     description = description[0].upper() + description[1:]
     description_bbox = small_font.getbbox(description)
-
     description_y_offset = description_bbox[1]
     description_top = config.HEIGHT - MARGIN_Y - small_font_example_height
     draw.text(
