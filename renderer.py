@@ -27,6 +27,15 @@ ICON_MAP = {
     '50d': 'J',
     '50n': 'K',
 }
+DAY_OF_WEEK_MAP = {
+    0: 'Mo',
+    1: 'Tu',
+    2: 'We',
+    3: 'Th',
+    4: 'Fr',
+    5: 'Sa',
+    6: 'Su',
+}
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 MARGIN_X = 0
@@ -160,7 +169,7 @@ def get_weather_display(label, date, weather):
         (config.WIDTH - MARGIN_X - full_temp_both_width - like_width, like_bottom - like_bbox[3]),
         "like", font=small_font, fill=BLACK)
 
-    day_of_week = date.strftime("%a")
+    day_of_week = DAY_OF_WEEK_MAP[date.weekday()]
     day_of_week_bbox = medium_font.getbbox(day_of_week)
     day_of_week_y_offset = day_of_week_bbox[1]
     day_of_week_width = day_of_week_bbox[2]
