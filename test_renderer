@@ -2,5 +2,5 @@
 
 cd ~/git/pi-assistant &&
 source ~/git/pi-assistant/venv/bin/activate &&
-python ~/git/pi-assistant/test.py &&
+python ~/git/pi-assistant/test_renderer.py &&
 deactivate ;

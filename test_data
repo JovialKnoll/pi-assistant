@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd ~/git/pi-assistant &&
+source ~/git/pi-assistant/venv/bin/activate &&
+python ~/git/pi-assistant/test_data.py &&
+deactivate ;
