@@ -2,5 +2,6 @@
 
 cd ~/git/pi-assistant &&
 source ~/git/pi-assistant/venv/bin/activate &&
+pip install --upgrade pip &&
 pip install -r ~/git/pi-assistant/requirements.txt &&
 deactivate ;
