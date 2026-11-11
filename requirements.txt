@@ -1,5 +1,6 @@
 RPi.GPIO==0.7.1
 adafruit-circuitpython-epd==2.20.0
 adafruit-circuitpython-debouncer==2.0.15
+Adafruit-Blinka=9.2.0
 croniter==6.2.4
 pillow==13.0.0
