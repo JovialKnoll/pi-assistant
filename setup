@@ -14,7 +14,7 @@ pip install -r requirements.txt;
 deactivate;
 echo "add the following to /etc/dhcpcd.conf";
 echo "static domain_name_servers=8.8.8.8"
-echo "turn on SPI interface";
+echo "turn on SPI interface (sudo raspi-config)";
 echo "add the following to crontab";
 echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
 echo "add the following to sudo crontab";
