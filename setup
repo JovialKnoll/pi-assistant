@@ -22,4 +22,5 @@ echo "add the following to crontab";
 echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
 echo "add the following to sudo crontab";
 echo "@reboot echo 'echo 0 | sudo tee /sys/class/leds/ACT/brightness' | at now + 2 minutes &> /dev/null";
+echo "59 1 * * * root reboot";
 echo "then, run ./scruipt to test";
