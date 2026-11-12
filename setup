@@ -9,14 +9,18 @@ sudo apt install -y at screen log2ram \
   libharfbuzz-dev libfribidi-dev libxcb1-dev \
 ;
 sudo apt autoremove -y;
+
 python -m venv venv;
 source venv/bin/activate;
 pip install --upgrade pip;
 pip install wheel buildtools;
 pip install -r requirements.txt;
 deactivate;
-echo "add the following to /etc/dhcpcd.conf";
-echo "static domain_name_servers=8.8.8.8"
+
+echo "static domain_name_servers=8.8.8.8" | sudo tee -a /etc/dhcpcd.conf;
+echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/wifi-powersave-off.conf;
+echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/wifi-powersave-off.conf;
+
 echo "turn on SPI interface (sudo raspi-config)";
 echo "add the following to crontab";
 echo "@reboot echo '~/git/pi-assistant/script' | at now + 2 minutes &> /dev/null";
